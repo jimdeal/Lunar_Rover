@@ -14,5 +14,6 @@ public interface Map {
 
     String getMapId();
     String getMapName();
+    CoOrds getMaxSize();
 
 }

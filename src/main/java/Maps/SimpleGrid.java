@@ -29,6 +29,9 @@ public abstract class SimpleGrid implements Map{
     public String getMapName(){
         return this.mapName;
     }
+    public CoOrds getMaxSize(){
+        return this.maxMapSize;
+    }
 
 
 }
