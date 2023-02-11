@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GridTest {
     @Test
-    public void mapSimpleConstructorAndGet(){
+    public void mapSimpleConstructorSetAndGet(){
         Grid map = new Grid();
         String name = new String("Home");
         String id = new String("1");
@@ -22,7 +22,7 @@ class GridTest {
     }
 
     @Test
-    public void mapSimpleConstructorAndGetFails(){
+    public void mapSimpleConstructorSetFailAndGet(){
         Grid map = new Grid();
         String name = new String("");
         String id = new String("");
