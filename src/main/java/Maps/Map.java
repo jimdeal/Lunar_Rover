@@ -12,4 +12,7 @@ public interface Map {
     void setMapMaxSize(CoOrds maxSize);
     boolean areCoOrdsWithinThisMap(CoOrds coOrds);
 
+    String getMapId();
+    String getMapName();
+
 }
