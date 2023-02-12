@@ -19,7 +19,7 @@ public abstract class SimpleRoverImpl implements RoverBase{
 
     public boolean initialiseRover(String name, String id, SimpleGrid map,
                                    CoOrds initialPosition, MoveOrientation initialOrientation){
-        boolean initialiseFail = false;
+        boolean initialisePass = false;
         if(!name.isEmpty()){
             this.roverName = name;
             if(!id.isEmpty()){
@@ -32,13 +32,13 @@ public abstract class SimpleRoverImpl implements RoverBase{
                         if(initialOrientation != null)
                         {
                             this.currentOrientation = initialOrientation;
-                            initialiseFail = true;
+                            initialisePass = true;
                         }
                     }
                 }
             }
         }
-        return initialiseFail;
+        return initialisePass;
     }
     public boolean setMap(SimpleGrid map){
         boolean setMapFail = false;
@@ -89,6 +89,16 @@ public abstract class SimpleRoverImpl implements RoverBase{
 
     public MoveOrientation getCurrentOrientation(){
         return this.currentOrientation;
+    }
+
+    public String getName(){
+        return this.roverName;
+    }
+    public String getId(){
+        return this.roverId;
+    }
+    public CoOrds getStartPosition(){
+        return this.startPosition;
     }
 
 }

@@ -49,5 +49,19 @@ public abstract class SimpleGrid implements Map{
         return this.maxMapSize;
     }
 
+    public boolean initialiseGrid(String name, String id, CoOrds maxSize){
+        boolean initialisePass = false;
+        if(!name.isEmpty()) {
+            this.mapName = name;
+            if (!id.isEmpty()) {
+                this.mapId = id;
+                if (maxSize.x > 1 && maxSize.y > 1) {
+                    this.maxMapSize = maxSize;
+                    initialisePass = true;
+                }
+            }
+        }
+        return initialisePass;
+    }
 
 }

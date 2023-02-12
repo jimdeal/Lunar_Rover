@@ -62,6 +62,43 @@ class GridTest {
         assertFalse(map.areCoOrdsWithinThisMap(outside2));
     }
 
+    @Test
+    public void mapSimpleConstructorInitialiseAndGet(){
+        Grid map = new Grid();
+        String name = new String("Home");
+        String id = new String("1");
+        CoOrds max = new CoOrds(10,10);
+        assertTrue(map.initialiseGrid(name,id,max));
+        assertEquals(name, map.getMapName());
+        assertEquals(id, map.getMapId());
+        assertEquals(max.x, map.getMaxSize().x);
+    }
 
+    @Test
+    public void mapSimpleConstructorInitialiseAndGetFail1(){
+        Grid map = new Grid();
+        String name = new String("");
+        String id = new String("1");
+        CoOrds max = new CoOrds(10,10);
+        assertFalse(map.initialiseGrid(name,id,max));
+    }
+
+    @Test
+    public void mapSimpleConstructorInitialiseAndGetFail2(){
+        Grid map = new Grid();
+        String name = new String("Home");
+        String id = new String("");
+        CoOrds max = new CoOrds(10,10);
+        assertFalse(map.initialiseGrid(name,id,max));
+    }
+
+    @Test
+    public void mapSimpleConstructorInitialiseAndGetFail3(){
+        Grid map = new Grid();
+        String name = new String("Home");
+        String id = new String("1");
+        CoOrds max = new CoOrds();
+        assertFalse(map.initialiseGrid(name,id,max));
+    }
 
 }

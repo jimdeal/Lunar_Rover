@@ -15,4 +15,8 @@ public interface RoverBase {
     CoOrds getCurrentRoverPosition();
     MoveOrientation getCurrentOrientation();
 
+    String getName();
+    String getId();
+    CoOrds getStartPosition();
+
 }
