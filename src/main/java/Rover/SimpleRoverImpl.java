@@ -122,6 +122,17 @@ public abstract class SimpleRoverImpl implements RoverBase{
                 MoveOrientation tempMove = MoveOrientation.values()[this.currentOrientation.ordinal() +1];
                 this.currentOrientation = tempMove;
             }
+            moveSuccessful = true;
+        } else if (move == Move.Left){
+            if(this.currentOrientation.ordinal()==0){
+                this.currentOrientation = MoveOrientation.West;
+            } else {
+                MoveOrientation tempMove = MoveOrientation.values()[this.currentOrientation.ordinal() -1];
+                this.currentOrientation = tempMove;
+            }
+            moveSuccessful = true;
+        } else {
+            //
         }
         return moveSuccessful;
     }

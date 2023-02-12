@@ -109,8 +109,6 @@ class RoverPlatformTest {
         changeOrientation = MoveOrientation.South;
         rover.changeOrientation(changeOrientation);
         assertEquals(rover.getCurrentOrientation(), changeOrientation);
-
-
     }
 
     @Test
@@ -135,7 +133,6 @@ class RoverPlatformTest {
         rover.changeOrientation(changeOrientation);
         rover.changeOrientation(changeOrientation);
         assertEquals(rover.getCurrentOrientation(), changeOrientation);
-
     }
 
     @Test
@@ -151,11 +148,10 @@ class RoverPlatformTest {
 
         assertTrue(rover.initialiseRover(name, id, map, initialPosition, initialOrientation));
         Move move = Move.Move;
+        CoOrds newCords = new CoOrds(rover.getCurrentRoverPosition().x, rover.getCurrentRoverPosition().y+1);
         assertTrue(rover.makeMove(move));
-        CoOrds newCords = new CoOrds(1,2);
         CoOrds testCoords = rover.getCurrentRoverPosition();
         assertTrue(newCords.CoOrdEquals(testCoords));
-
     }
 
     @Test
@@ -234,6 +230,31 @@ class RoverPlatformTest {
         assertFalse(rover.makeMove(move));
         rover.changeOrientation(MoveOrientation.East);
         assertFalse(rover.makeMove(move));
+    }
+
+    @Test
+    public void testConstructionAndInitialiseRoverMove6() {
+        RoverPlatform rover = new RoverPlatform();
+        String name = new String("Huey");
+        String id = new String("1");
+        CoOrds maxSize = new CoOrds(10, 10);
+        Grid map = new Grid();
+        map.initialiseGrid("Home", "1", maxSize);
+        CoOrds initialPosition = new CoOrds(10, 10);
+        MoveOrientation initialOrientation = MoveOrientation.North;
+
+        assertTrue(rover.initialiseRover(name, id, map, initialPosition, initialOrientation));
+        Move move = Move.Left;
+        rover.makeMove(move);
+        assertEquals(MoveOrientation.West, rover.getCurrentOrientation());
+
+        move = Move.Right;
+        rover.makeMove(move);
+        assertEquals(MoveOrientation.North, rover.getCurrentOrientation());
+
+        rover.makeMove(move);
+        assertEquals(MoveOrientation.East, rover.getCurrentOrientation());
+
     }
 
 }
