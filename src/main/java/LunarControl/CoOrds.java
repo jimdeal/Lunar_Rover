@@ -13,4 +13,12 @@ public class CoOrds {
         this.y = y;
     }
 
+    public boolean CoOrdEquals(CoOrds one){
+        boolean equalsResult = false;
+        if((one.x == this.x) && (one.y == this.y)){
+            equalsResult = true;
+        }
+        return equalsResult;
+    }
+
 }

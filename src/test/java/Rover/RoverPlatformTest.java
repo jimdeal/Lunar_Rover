@@ -1,6 +1,7 @@
 package Rover;
 
 import LunarControl.CoOrds;
+import LunarControl.Move;
 import LunarControl.MoveOrientation;
 import Maps.Grid;
 import Maps.SimpleGrid;
@@ -137,5 +138,25 @@ class RoverPlatformTest {
 
     }
 
+    @Test
+    public void testConstructionAndInitialiseRoverMove1() {
+        RoverPlatform rover = new RoverPlatform();
+        String name = new String("Huey");
+        String id = new String("1");
+        CoOrds maxSize = new CoOrds(10, 10);
+        Grid map = new Grid();
+        map.initialiseGrid("Home", "1", maxSize);
+        CoOrds initialPosition = new CoOrds(1, 1);
+        MoveOrientation initialOrientation = MoveOrientation.North;
 
-}
+        assertTrue(rover.initialiseRover(name, id, map, initialPosition, initialOrientation));
+        Move move = Move.Move;
+        assertTrue(rover.makeMove(move));
+        CoOrds newCords = new CoOrds(1,2);
+        CoOrds testCoords = rover.getCurrentRoverPosition();
+        assertTrue(newCords.CoOrdEquals(testCoords));
+
+    }
+
+
+    }

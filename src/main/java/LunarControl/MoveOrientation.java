@@ -2,7 +2,7 @@ package LunarControl;
 
 public enum MoveOrientation {
     North,
-    South,
     East,
+    South,
     West
 }

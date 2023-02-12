@@ -81,7 +81,8 @@ public abstract class SimpleRoverImpl implements RoverBase{
     }
 
     public boolean makeMove(Move move){
-        return false;
+        boolean moveSuccessful = false;
+        return moveSuccessful;
     }
 
 
