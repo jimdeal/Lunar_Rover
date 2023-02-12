@@ -16,7 +16,7 @@ public abstract class SimpleRoverImpl implements RoverBase{
     private CoOrds startPosition = new CoOrds(0,0);
     private CoOrds currentPosition = new CoOrds(0,0);
     private MoveOrientation currentOrientation = MoveOrientation.North;
-    private ArrayList<MoveOrientation> movesLog = new ArrayList<MoveOrientation>();
+    private ArrayList<String> movesLog = new ArrayList<String>();
 
     public boolean initialiseRover(String name, String id, SimpleGrid map,
                                    CoOrds initialPosition, MoveOrientation initialOrientation){
@@ -33,6 +33,7 @@ public abstract class SimpleRoverImpl implements RoverBase{
                         this.currentPosition = initialPosition;
                         if(initialOrientation != null)
                         {
+                            this.logMove("Init");
                             this.currentOrientation = initialOrientation;
                             initialisePass = true;
                         }
@@ -54,8 +55,12 @@ public abstract class SimpleRoverImpl implements RoverBase{
         this.currentOrientation = nextOrientation;
     }
 
-    private void logMove(MoveOrientation justMoved){
+    private void logMove(String justMoved){
         this.movesLog.add(justMoved);
+    }
+
+    ArrayList<String> getLog(){
+        return this.movesLog;
     }
 
     public SimpleGrid getCurrentMap(){
@@ -88,6 +93,8 @@ public abstract class SimpleRoverImpl implements RoverBase{
                     if ((this.currentOrientation == MoveOrientation.North) &&
                             ((this.currentPosition.y + 1) <= this.currentMap.getMaxSize().y)) {
                         this.currentPosition.y++;
+                        this.logMove(move.toString());
+
                         moveSuccessful = true;
                     }
                     break;
@@ -95,6 +102,7 @@ public abstract class SimpleRoverImpl implements RoverBase{
                     if ((this.currentOrientation == MoveOrientation.East) &&
                             ((this.currentPosition.x + 1) <= this.currentMap.getMaxSize().x)) {
                         this.currentPosition.x++;
+                        this.logMove(move.toString());
                         moveSuccessful = true;
                     }
                     break;
@@ -102,6 +110,7 @@ public abstract class SimpleRoverImpl implements RoverBase{
                     if ((this.currentOrientation == MoveOrientation.South) &&
                             ((this.currentPosition.y - 1) >= 0)) {
                         this.currentPosition.y--;
+                        this.logMove(move.toString());
                         moveSuccessful = true;
                     }
                     break;
@@ -109,6 +118,7 @@ public abstract class SimpleRoverImpl implements RoverBase{
                     if ((this.currentOrientation == MoveOrientation.West) &&
                             ((this.currentPosition.x - 1) >= 0)) {
                         this.currentPosition.x--;
+                        this.logMove(move.toString());
                         moveSuccessful = true;
                     }
                     break;
@@ -116,6 +126,7 @@ public abstract class SimpleRoverImpl implements RoverBase{
                     break;
             }
         } else if (move == Move.Right){
+            this.logMove(move.toString());
             if(this.currentOrientation.ordinal()==3){
                 this.currentOrientation = MoveOrientation.North;
             } else {
@@ -124,6 +135,7 @@ public abstract class SimpleRoverImpl implements RoverBase{
             }
             moveSuccessful = true;
         } else if (move == Move.Left){
+            this.logMove(move.toString());
             if(this.currentOrientation.ordinal()==0){
                 this.currentOrientation = MoveOrientation.West;
             } else {
@@ -136,6 +148,5 @@ public abstract class SimpleRoverImpl implements RoverBase{
         }
         return moveSuccessful;
     }
-
 
 }

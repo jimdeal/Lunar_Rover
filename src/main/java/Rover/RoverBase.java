@@ -12,10 +12,10 @@ public interface RoverBase {
     SimpleGrid getCurrentMap();
     void changeOrientation(MoveOrientation nextOrientation);
     MoveOrientation getCurrentOrientation();
-    private void logMove(MoveOrientation justMoved) {}
     CoOrds getCurrentRoverPosition();
     String getName();
     String getId();
     CoOrds getStartPosition();
     boolean makeMove(Move move);
+
 }

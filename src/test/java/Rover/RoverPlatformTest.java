@@ -7,6 +7,8 @@ import Maps.Grid;
 import Maps.SimpleGrid;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class RoverPlatformTest {
@@ -146,12 +148,19 @@ class RoverPlatformTest {
         CoOrds initialPosition = new CoOrds(1, 1);
         MoveOrientation initialOrientation = MoveOrientation.North;
 
+        ArrayList<String> testLog = new ArrayList<String>();
+        testLog.add("Init");
         assertTrue(rover.initialiseRover(name, id, map, initialPosition, initialOrientation));
         Move move = Move.Move;
         CoOrds newCords = new CoOrds(rover.getCurrentRoverPosition().x, rover.getCurrentRoverPosition().y+1);
+        testLog.add("Move");
         assertTrue(rover.makeMove(move));
         CoOrds testCoords = rover.getCurrentRoverPosition();
         assertTrue(newCords.CoOrdEquals(testCoords));
+
+        ArrayList log = rover.getLog();
+
+        assertArrayEquals(log.toArray(),testLog.toArray());
     }
 
     @Test
@@ -186,14 +195,20 @@ class RoverPlatformTest {
         CoOrds initialPosition = new CoOrds(9, 1);
         MoveOrientation initialOrientation = MoveOrientation.East;
 
+        ArrayList<String> testLog = new ArrayList<String>();
+        testLog.add("Init");
+
         assertTrue(rover.initialiseRover(name, id, map, initialPosition, initialOrientation));
         Move move = Move.Move;
+        testLog.add("Move");
         assertTrue(rover.makeMove(move));
         CoOrds newCords = new CoOrds(10,1);
         CoOrds testCoords = rover.getCurrentRoverPosition();
         assertTrue(newCords.CoOrdEquals(testCoords));
 
         assertFalse(rover.makeMove(move));
+        ArrayList log = rover.getLog();
+        assertArrayEquals(log.toArray(),testLog.toArray());
     }
 
     @Test
@@ -243,17 +258,26 @@ class RoverPlatformTest {
         CoOrds initialPosition = new CoOrds(10, 10);
         MoveOrientation initialOrientation = MoveOrientation.North;
 
+        ArrayList<String> testLog = new ArrayList<String>();
+        testLog.add("Init");
+
         assertTrue(rover.initialiseRover(name, id, map, initialPosition, initialOrientation));
         Move move = Move.Left;
+        testLog.add("Left");
         rover.makeMove(move);
         assertEquals(MoveOrientation.West, rover.getCurrentOrientation());
 
         move = Move.Right;
+        testLog.add("Right");
         rover.makeMove(move);
         assertEquals(MoveOrientation.North, rover.getCurrentOrientation());
 
         rover.makeMove(move);
+        testLog.add("Right");
         assertEquals(MoveOrientation.East, rover.getCurrentOrientation());
+
+        ArrayList log = rover.getLog();
+        assertArrayEquals(log.toArray(),testLog.toArray());
 
     }
 
