@@ -158,5 +158,82 @@ class RoverPlatformTest {
 
     }
 
+    @Test
+    public void testConstructionAndInitialiseRoverMove2() {
+        RoverPlatform rover = new RoverPlatform();
+        String name = new String("Huey");
+        String id = new String("1");
+        CoOrds maxSize = new CoOrds(10, 10);
+        Grid map = new Grid();
+        map.initialiseGrid("Home", "1", maxSize);
+        CoOrds initialPosition = new CoOrds(1, 9);
+        MoveOrientation initialOrientation = MoveOrientation.North;
 
+        assertTrue(rover.initialiseRover(name, id, map, initialPosition, initialOrientation));
+        Move move = Move.Move;
+        assertTrue(rover.makeMove(move));
+        CoOrds newCords = new CoOrds(1,10);
+        CoOrds testCoords = rover.getCurrentRoverPosition();
+        assertTrue(newCords.CoOrdEquals(testCoords));
+
+        assertFalse(rover.makeMove(move));
     }
+
+    @Test
+    public void testConstructionAndInitialiseRoverMove3() {
+        RoverPlatform rover = new RoverPlatform();
+        String name = new String("Huey");
+        String id = new String("1");
+        CoOrds maxSize = new CoOrds(10, 10);
+        Grid map = new Grid();
+        map.initialiseGrid("Home", "1", maxSize);
+        CoOrds initialPosition = new CoOrds(9, 1);
+        MoveOrientation initialOrientation = MoveOrientation.East;
+
+        assertTrue(rover.initialiseRover(name, id, map, initialPosition, initialOrientation));
+        Move move = Move.Move;
+        assertTrue(rover.makeMove(move));
+        CoOrds newCords = new CoOrds(10,1);
+        CoOrds testCoords = rover.getCurrentRoverPosition();
+        assertTrue(newCords.CoOrdEquals(testCoords));
+
+        assertFalse(rover.makeMove(move));
+    }
+
+    @Test
+    public void testConstructionAndInitialiseRoverMove4() {
+        RoverPlatform rover = new RoverPlatform();
+        String name = new String("Huey");
+        String id = new String("1");
+        CoOrds maxSize = new CoOrds(10, 10);
+        Grid map = new Grid();
+        map.initialiseGrid("Home", "1", maxSize);
+        CoOrds initialPosition = new CoOrds(0, 0);
+        MoveOrientation initialOrientation = MoveOrientation.South;
+
+        assertTrue(rover.initialiseRover(name, id, map, initialPosition, initialOrientation));
+        Move move = Move.Move;
+        assertFalse(rover.makeMove(move));
+        rover.changeOrientation(MoveOrientation.West);
+        assertFalse(rover.makeMove(move));
+    }
+
+    @Test
+    public void testConstructionAndInitialiseRoverMove5() {
+        RoverPlatform rover = new RoverPlatform();
+        String name = new String("Huey");
+        String id = new String("1");
+        CoOrds maxSize = new CoOrds(10, 10);
+        Grid map = new Grid();
+        map.initialiseGrid("Home", "1", maxSize);
+        CoOrds initialPosition = new CoOrds(10, 10);
+        MoveOrientation initialOrientation = MoveOrientation.North;
+
+        assertTrue(rover.initialiseRover(name, id, map, initialPosition, initialOrientation));
+        Move move = Move.Move;
+        assertFalse(rover.makeMove(move));
+        rover.changeOrientation(MoveOrientation.East);
+        assertFalse(rover.makeMove(move));
+    }
+
+}
