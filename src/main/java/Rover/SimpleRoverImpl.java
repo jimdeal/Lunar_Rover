@@ -1,6 +1,7 @@
 package Rover;
 
 import LunarControl.CoOrds;
+import LunarControl.Move;
 import LunarControl.MoveOrientation;
 import Maps.Grid;
 import Maps.Map;
@@ -29,6 +30,7 @@ public abstract class SimpleRoverImpl implements RoverBase{
                     if((initialPosition.x>0 && initialPosition.x<map.getMaxSize().x) &&
                             (initialPosition.y>0 && initialPosition.y<map.getMaxSize().y)) {
                         this.startPosition = initialPosition;
+                        this.currentPosition = initialPosition;
                         if(initialOrientation != null)
                         {
                             this.currentOrientation = initialOrientation;
@@ -48,31 +50,8 @@ public abstract class SimpleRoverImpl implements RoverBase{
         }
         return setMapFail;
     }
-    public boolean makeMove(MoveOrientation nextMove){
-        boolean setMoveFail = false;
-
-        CoOrds tempMove = currentPosition;
-
-        switch (nextMove){
-            case North:
-                // change orientation
-                break;
-            case South:
-                // change orientation
-                break;
-            case East:
-                // change orientation
-                break;
-            case West:
-                // change orientation
-                break;
-            case Move:
-                // change position
-                break;
-            default:
-                // setMoveFail already false - leave it
-        }
-        return setMoveFail;
+    public void changeOrientation(MoveOrientation nextOrientation){
+        this.currentOrientation = nextOrientation;
     }
 
     private void logMove(MoveOrientation justMoved){
@@ -100,5 +79,10 @@ public abstract class SimpleRoverImpl implements RoverBase{
     public CoOrds getStartPosition(){
         return this.startPosition;
     }
+
+    public boolean makeMove(Move move){
+        return false;
+    }
+
 
 }

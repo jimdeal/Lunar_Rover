@@ -24,6 +24,7 @@ class RoverPlatformTest {
         assertEquals(rover.getName(), name);
         assertEquals(rover.getId(),id);
         assertEquals(rover.getStartPosition(), initialPosition);
+        assertEquals(rover.getCurrentRoverPosition(), initialPosition);
         assertEquals(rover.getCurrentOrientation(),initialOrientation);
     }
 
@@ -81,5 +82,60 @@ class RoverPlatformTest {
 
         assertFalse(rover.initialiseRover(name, id, map, initialPosition, initialOrientation));
     }
+
+    @Test
+    public void testConstructionAndInitialiseRoverChangeOrientation1(){
+        RoverPlatform rover = new RoverPlatform();
+        String name = new String("Huey");
+        String id = new String("1");
+        CoOrds maxSize = new CoOrds(10,10);
+        Grid map = new Grid();
+        map.initialiseGrid("Home", "1", maxSize);
+        CoOrds initialPosition = new CoOrds(1,1);
+        MoveOrientation initialOrientation = MoveOrientation.North;
+
+        assertTrue(rover.initialiseRover(name, id, map, initialPosition, initialOrientation));
+        assertEquals(rover.getCurrentOrientation(),initialOrientation);
+
+        MoveOrientation changeOrientation = MoveOrientation.East;
+        rover.changeOrientation(changeOrientation);
+        assertEquals(rover.getCurrentOrientation(), changeOrientation);
+
+        changeOrientation = MoveOrientation.West;
+        rover.changeOrientation(changeOrientation);
+        assertEquals(rover.getCurrentOrientation(), changeOrientation);
+
+        changeOrientation = MoveOrientation.South;
+        rover.changeOrientation(changeOrientation);
+        assertEquals(rover.getCurrentOrientation(), changeOrientation);
+
+
+    }
+
+    @Test
+    public void testConstructionAndInitialiseRoverChangeOrientation2(){
+        RoverPlatform rover = new RoverPlatform();
+        String name = new String("Huey");
+        String id = new String("1");
+        CoOrds maxSize = new CoOrds(10,10);
+        Grid map = new Grid();
+        map.initialiseGrid("Home", "1", maxSize);
+        CoOrds initialPosition = new CoOrds(1,1);
+        MoveOrientation initialOrientation = MoveOrientation.North;
+
+        assertTrue(rover.initialiseRover(name, id, map, initialPosition, initialOrientation));
+        assertEquals(rover.getCurrentOrientation(),initialOrientation);
+
+        MoveOrientation changeOrientation = MoveOrientation.West;
+        rover.changeOrientation(changeOrientation);
+        assertEquals(rover.getCurrentOrientation(), changeOrientation);
+
+        changeOrientation = MoveOrientation.East;
+        rover.changeOrientation(changeOrientation);
+        rover.changeOrientation(changeOrientation);
+        assertEquals(rover.getCurrentOrientation(), changeOrientation);
+
+    }
+
 
 }
