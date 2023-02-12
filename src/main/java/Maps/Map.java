@@ -10,10 +10,10 @@ public interface Map {
     boolean setMapId(String mapId);
     boolean setMapName(String mapName);
     boolean setMapMaxSize(CoOrds maxSize);
-    boolean areCoOrdsWithinThisMap(CoOrds coOrds);
     String getMapId();
     String getMapName();
     CoOrds getMaxSize();
+    boolean areCoOrdsWithinThisMap(CoOrds coOrds);
     boolean initialiseGrid(String name, String id, CoOrds maxSize);
 
 }

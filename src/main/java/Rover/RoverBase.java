@@ -9,17 +9,13 @@ public interface RoverBase {
     boolean initialiseRover(String name, String id, SimpleGrid map,
                             CoOrds initialPosition, MoveOrientation initialOrientation);
     boolean setMap(SimpleGrid map);
-    void changeOrientation(MoveOrientation nextOrientation);
-    private void logMove(MoveOrientation justMoved) {}
-
     SimpleGrid getCurrentMap();
-    CoOrds getCurrentRoverPosition();
+    void changeOrientation(MoveOrientation nextOrientation);
     MoveOrientation getCurrentOrientation();
-
+    private void logMove(MoveOrientation justMoved) {}
+    CoOrds getCurrentRoverPosition();
     String getName();
     String getId();
     CoOrds getStartPosition();
-
     boolean makeMove(Move move);
-
 }
