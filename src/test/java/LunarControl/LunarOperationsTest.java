@@ -69,7 +69,6 @@ class LunarOperationsTest {
         assertEquals(homeMap.getMapId(), "1");
         CoOrds mapSize = homeMap.getMaxSize();
         assertEquals(mapSize,maxSize);
-
     }
 
     @Test
@@ -113,7 +112,6 @@ class LunarOperationsTest {
         assertEquals(leadRover.getId(), "1");
         CoOrds mapSize = leadRover.getCurrentMap().getMaxSize();
         assertEquals(mapSize,maxSize);
-
     }
 
     @Test
@@ -143,7 +141,6 @@ class LunarOperationsTest {
         assertEquals(leadRover.getId(), "1");
         CoOrds mapSize = leadRover.getCurrentMap().getMaxSize();
         assertEquals(mapSize,maxSize);
-
     }
 
     @Test
@@ -159,18 +156,59 @@ class LunarOperationsTest {
         roverPlatform.initialiseRover("Lead", "1",grid, startingPosition, MoveOrientation.North);
         assertTrue(lunarOperations.addRoverToRoversInUse(roverPlatform));
 
-
-
+        lunarOperations.changeRoverOrientation("Lead", MoveOrientation.West);
+        RoverPlatform updatedRover = lunarOperations.getRoverByName("Lead");
+        assertEquals(updatedRover.getCurrentOrientation(), MoveOrientation.West);
     }
 
     @Test
-    public void testChangeOrientationOfRoverThroughControllerIncorrectMap1(){
+    public void testChangeOrientationOfRoverThroughControllerIncorrectName(){
+        LunarOperations lunarOperations = new LunarOperations();
+        Grid grid = new Grid();
+        CoOrds maxSize = new CoOrds(10,10);
+        grid.initialiseGrid("Home","1",maxSize);
+        assertTrue(lunarOperations.addMapToMapsInUse(grid));
 
+        CoOrds startingPosition = new CoOrds(0,0);
+        RoverPlatform roverPlatform = new RoverPlatform();
+        roverPlatform.initialiseRover("Lead", "1",grid, startingPosition, MoveOrientation.North);
+        assertTrue(lunarOperations.addRoverToRoversInUse(roverPlatform));
 
+        lunarOperations.changeRoverOrientation("lunar1", MoveOrientation.West);
+        RoverPlatform updatedRover = lunarOperations.getRoverByName("lunar1");
+        assertEquals(updatedRover, null);
     }
 
+    @Test
+    public void doMultipleMoves(){
+        LunarOperations lunarOperations = new LunarOperations();
+        Grid grid = new Grid();
+        CoOrds maxSize = new CoOrds(10,10);
+        grid.initialiseGrid("Home","1",maxSize);
+        assertTrue(lunarOperations.addMapToMapsInUse(grid));
 
+        CoOrds startingPosition = new CoOrds(0,0);
+        RoverPlatform roverPlatform = new RoverPlatform();
+        roverPlatform.initialiseRover("Lead", "1",grid, startingPosition, MoveOrientation.North);
+        assertTrue(lunarOperations.addRoverToRoversInUse(roverPlatform));
 
+        Move move = Move.Move;
+        assertTrue(lunarOperations.moveRover("Lead", move));
+        RoverPlatform updatedRover = lunarOperations.getRoverByName("Lead");
+        CoOrds newCords = new CoOrds(0,1);
+        assertTrue(updatedRover.getCurrentRoverPosition().CoOrdEquals(newCords));
 
+        move = Move.Right;
+        assertTrue(lunarOperations.moveRover("Lead", move));
+        updatedRover = lunarOperations.getRoverByName("Lead");
 
+        assertEquals(updatedRover.getCurrentOrientation(), MoveOrientation.East);
+
+        move = Move.Move;
+        assertTrue(lunarOperations.moveRover("Lead", move));
+        updatedRover = lunarOperations.getRoverByName("Lead");
+        newCords = new CoOrds(1,1);
+        assertTrue(updatedRover.getCurrentRoverPosition().CoOrdEquals(newCords));
+
+    }
 }

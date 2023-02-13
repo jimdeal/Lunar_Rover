@@ -221,7 +221,10 @@ class GridTest {
 
         assertTrue(map.updateRoverInMapOrientation(rover));
         RoverPlatform updatedRover = map.getRoverInMap(rover.getName());
-        assertEquals(MoveOrientation.West, updatedRover.getCurrentOrientation());
+        CoOrds newCords = new CoOrds(0,1);
+        CoOrds updated = updatedRover.getCurrentRoverPosition();
+        assertTrue(updated.CoOrdEquals(newCords));
+
     }
 
 

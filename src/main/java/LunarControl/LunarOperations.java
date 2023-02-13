@@ -28,7 +28,6 @@ public class LunarOperations {
             }
         }
         return null;
-
     }
 
     public Grid getMapById(String id){
@@ -40,11 +39,23 @@ public class LunarOperations {
             }
         }
         return null;
-
     }
 
     public boolean addRoverToRoversInUse(RoverPlatform rover){
-        return roversInUse.add(rover);
+        boolean roverAdded = false;
+        if(mapsInUse.size()>0){
+            Iterator<Grid> iterator = mapsInUse.iterator();
+            while (iterator.hasNext()) {
+                Grid map = iterator.next();
+                if (map.getMapName() == rover.getCurrentMap().getMapName()) {
+                    roverAdded = roversInUse.add(new RoverPlatform(rover));
+                }
+            }
+        } else {
+            roversInUse.add(new RoverPlatform(rover));
+            roverAdded = true;
+        }
+        return roverAdded;
     }
     public int getNumberOfRoversInUse(){
         return roversInUse.size();
@@ -59,7 +70,6 @@ public class LunarOperations {
             }
         }
         return null;
-
     }
 
     public RoverPlatform getRoverById(String id){
@@ -71,8 +81,22 @@ public class LunarOperations {
             }
         }
         return null;
-
     }
 
+    public void changeRoverOrientation(String roverName, MoveOrientation moveOrientation){
+        RoverPlatform tempRover = this.getRoverByName(roverName);
+        if( tempRover != null){
+            tempRover.changeOrientation(moveOrientation);
+        }
+    }
+
+    public boolean moveRover(String roverName, Move move){
+        boolean opResult = false;
+        RoverPlatform tempRover = this.getRoverByName(roverName);
+        if( tempRover != null){
+            opResult = tempRover.makeMove(move);
+        }
+        return opResult;
+    }
 
 }
