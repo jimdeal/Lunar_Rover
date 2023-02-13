@@ -1,6 +1,10 @@
 package Maps;
 
 import LunarControl.CoOrds;
+import Rover.RoverPlatform;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public abstract class SimpleGrid implements Map{
     // Implements a map.
@@ -8,6 +12,7 @@ public abstract class SimpleGrid implements Map{
     protected String mapName = "";
     protected String mapId = "";
     protected CoOrds maxMapSize = new CoOrds(0,0);
+    protected ArrayList<RoverPosition> currentRoversInMap = new ArrayList<RoverPosition>();
 
 
     public boolean setMapId(String mapId){
@@ -62,6 +67,9 @@ public abstract class SimpleGrid implements Map{
             }
         }
         return initialisePass;
+    }
+
+    public boolean addRoverToMap(RoverPlatform rover){
     }
 
 }
