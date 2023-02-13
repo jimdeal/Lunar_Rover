@@ -146,4 +146,20 @@ class LunarOperationsTest {
 
     }
 
+    @Test
+    public void testChangeOrientationOfRoverThroughController(){
+
+
+    }
+
+    @Test
+    public void testChangeOrientationOfRoverThroughControllerIncorrectMap1(){
+
+
+    }
+
+
+
+
+
 }

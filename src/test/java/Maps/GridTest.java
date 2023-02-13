@@ -181,7 +181,5 @@ class GridTest {
         assertFalse(map.addRoverToMap(rover3));
 
         assertEquals(1,map.numberOfRoversOnMap());
-
     }
-
 }
