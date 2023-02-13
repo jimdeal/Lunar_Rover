@@ -1,6 +1,8 @@
 package LunarControl;
 
 import Maps.Grid;
+import Rover.RoverPlatform;
+import Rover.SimpleRoverImpl;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,6 +10,7 @@ import java.util.Iterator;
 public class LunarOperations {
 
     ArrayList<Grid> mapsInUse = new ArrayList<Grid>();
+    ArrayList<RoverPlatform> roversInUse = new ArrayList<RoverPlatform>();
 
     public boolean addMapToMapsInUs(Grid map){
         return mapsInUse.add(map);
@@ -39,5 +42,37 @@ public class LunarOperations {
         return null;
 
     }
+
+    public boolean addRoverToRoversInUse(RoverPlatform rover){
+        return roversInUse.add(rover);
+    }
+    public int getNumberOfRoversInUse(){
+        return roversInUse.size();
+    }
+
+    public RoverPlatform getRoverByName(String roverName){
+        Iterator<RoverPlatform> iterator = roversInUse.iterator();
+        while (iterator.hasNext()) {
+            RoverPlatform rover = iterator.next();
+            if (rover.getName().equals(roverName)) {
+                return rover;
+            }
+        }
+        return null;
+
+    }
+
+    public RoverPlatform getRoverById(String id){
+        Iterator<RoverPlatform> iterator = roversInUse.iterator();
+        while (iterator.hasNext()) {
+            RoverPlatform rover = iterator.next();
+            if (rover.getId().equals(id)) {
+                return rover;
+            }
+        }
+        return null;
+
+    }
+
 
 }
