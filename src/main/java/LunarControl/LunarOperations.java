@@ -12,7 +12,7 @@ public class LunarOperations {
     ArrayList<Grid> mapsInUse = new ArrayList<Grid>();
     ArrayList<RoverPlatform> roversInUse = new ArrayList<RoverPlatform>();
 
-    public boolean addMapToMapsInUs(Grid map){
+    public boolean addMapToMapsInUse(Grid map){
         return mapsInUse.add(map);
     }
     public int getNumberOfMapsInUse(){

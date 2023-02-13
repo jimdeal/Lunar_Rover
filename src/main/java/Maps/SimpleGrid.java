@@ -1,6 +1,7 @@
 package Maps;
 
 import LunarControl.CoOrds;
+import LunarControl.MoveOrientation;
 import Rover.RoverPlatform;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public abstract class SimpleGrid implements Map{
     protected String mapName = "";
     protected String mapId = "";
     protected CoOrds maxMapSize = new CoOrds(0,0);
-    protected ArrayList<RoverPosition> currentRoversInMap = new ArrayList<RoverPosition>();
+    protected ArrayList<RoverPlatform> currentRoversInMap = new ArrayList<RoverPlatform>();
 
 
     public boolean setMapId(String mapId){
@@ -74,23 +75,18 @@ public abstract class SimpleGrid implements Map{
         if(rover.getCurrentMap().getMapName().equals(mapName)){
             // check have we got rover on this map : no rovers in map..
             if(currentRoversInMap.size()>0){
-                Iterator<RoverPosition> iterator = currentRoversInMap.iterator();
+                Iterator<RoverPlatform> iterator = currentRoversInMap.iterator();
                 while (iterator.hasNext()) {
-                    RoverPosition roverPosition = iterator.next();
-                    if ((roverPosition.roverName.equals(rover.getName())) ||
-                            (roverPosition.roverId.equals(rover.getId())) ||
-                            (roverPosition.roverPosition.equals(rover.getCurrentRoverPosition()))){
+                    RoverPlatform roverInMap = iterator.next();
+                    if ((roverInMap.getName().equals(rover.getName())) ||
+                            (roverInMap.getId().equals(rover.getId())) ||
+                            (roverInMap.getCurrentRoverPosition().equals(rover.getCurrentRoverPosition()))){
                         // this rover is already on this map OR the map from the rover is not this one
                         return successfulAdd;
                     }
                 }
             }
-            RoverPosition roverPosition = new RoverPosition();
-            roverPosition.roverName = rover.getName();
-            roverPosition.roverId = rover.getId();
-            roverPosition.roverPosition = rover.getCurrentRoverPosition();
-            roverPosition.roverOrientation = rover.getCurrentOrientation();
-            currentRoversInMap.add(roverPosition);
+            currentRoversInMap.add(rover);
             successfulAdd = true;
         }
         return successfulAdd;
@@ -98,6 +94,10 @@ public abstract class SimpleGrid implements Map{
 
     public int numberOfRoversOnMap(){
         return currentRoversInMap.size();
+    }
+
+    public boolean updateRoverInMapOrientation(RoverPlatform rover, MoveOrientation newOrientation){
+        return false;
     }
 
 
