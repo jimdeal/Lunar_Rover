@@ -70,6 +70,35 @@ public abstract class SimpleGrid implements Map{
     }
 
     public boolean addRoverToMap(RoverPlatform rover){
+        boolean successfulAdd = false;
+        if(rover.getCurrentMap().getMapName().equals(mapName)){
+            // check have we got rover on this map : no rovers in map..
+            if(currentRoversInMap.size()>0){
+                Iterator<RoverPosition> iterator = currentRoversInMap.iterator();
+                while (iterator.hasNext()) {
+                    RoverPosition roverPosition = iterator.next();
+                    if ((roverPosition.roverName.equals(rover.getName())) ||
+                            (roverPosition.roverId.equals(rover.getId())) ||
+                            (roverPosition.roverPosition.equals(rover.getCurrentRoverPosition()))){
+                        // this rover is already on this map OR the map from the rover is not this one
+                        return successfulAdd;
+                    }
+                }
+            }
+            RoverPosition roverPosition = new RoverPosition();
+            roverPosition.roverName = rover.getName();
+            roverPosition.roverId = rover.getId();
+            roverPosition.roverPosition = rover.getCurrentRoverPosition();
+            roverPosition.roverOrientation = rover.getCurrentOrientation();
+            currentRoversInMap.add(roverPosition);
+            successfulAdd = true;
+        }
+        return successfulAdd;
     }
+
+    public int numberOfRoversOnMap(){
+        return currentRoversInMap.size();
+    }
+
 
 }

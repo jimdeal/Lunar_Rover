@@ -1,6 +1,7 @@
 package Maps;
 
 import LunarControl.CoOrds;
+import Rover.RoverPlatform;
 
 public interface Map {
     // Map : is an interface that allows users to create a new map with "template"
@@ -15,5 +16,8 @@ public interface Map {
     CoOrds getMaxSize();
     boolean areCoOrdsWithinThisMap(CoOrds coOrds);
     boolean initialiseGrid(String name, String id, CoOrds maxSize);
+    boolean addRoverToMap(RoverPlatform rover);
+    int numberOfRoversOnMap();
 
-}
+
+    }
