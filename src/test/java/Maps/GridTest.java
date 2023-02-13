@@ -1,6 +1,7 @@
 package Maps;
 
 import LunarControl.CoOrds;
+import LunarControl.Move;
 import LunarControl.MoveOrientation;
 import Rover.RoverPlatform;
 import org.junit.jupiter.api.Test;
@@ -182,4 +183,48 @@ class GridTest {
 
         assertEquals(1,map.numberOfRoversOnMap());
     }
+
+    @Test
+    public void updateOrientationOfRoverInMap(){
+        RoverPlatform rover = new RoverPlatform();
+        String name = new String("Huey");
+        String id = new String("1");
+        CoOrds maxSize = new CoOrds(10,10);
+        Grid map = new Grid();
+        map.initialiseGrid("Home", "1", maxSize);
+        CoOrds initialPosition = new CoOrds(0,0);
+        MoveOrientation initialOrientation = MoveOrientation.North;
+        assertTrue(rover.initialiseRover(name, id, map, initialPosition, initialOrientation));
+        assertTrue(map.addRoverToMap(rover));
+
+        rover.changeOrientation(MoveOrientation.West);
+        assertEquals(MoveOrientation.West, rover.getCurrentOrientation());
+//        assertTrue(map.updateRoverInMapOrientation(rover));
+        RoverPlatform updatedRover = map.getRoverInMap(rover.getName());
+        assertEquals(MoveOrientation.West, updatedRover.getCurrentOrientation());
+    }
+
+    @Test
+    public void updatePositionOfRoverInMap(){
+        RoverPlatform rover = new RoverPlatform();
+        String name = new String("Huey");
+        String id = new String("1");
+        CoOrds maxSize = new CoOrds(10,10);
+        Grid map = new Grid();
+        map.initialiseGrid("Home", "1", maxSize);
+        CoOrds initialPosition = new CoOrds(0,0);
+        MoveOrientation initialOrientation = MoveOrientation.North;
+        assertTrue(rover.initialiseRover(name, id, map, initialPosition, initialOrientation));
+        assertTrue(map.addRoverToMap(rover));
+
+        rover.makeMove(Move.Move);
+
+// IF I UPDATE rover here : i'm updating the rover as stored in map::currentRoversInMap as well ?
+        assertEquals(MoveOrientation.West, rover.getCurrentOrientation());
+//        assertTrue(map.updateRoverInMapOrientation(rover));
+        RoverPlatform updatedRover = map.getRoverInMap(rover.getName());
+        assertEquals(MoveOrientation.West, updatedRover.getCurrentOrientation());
+    }
+
+
 }

@@ -18,6 +18,7 @@ public interface Map {
     boolean initialiseGrid(String name, String id, CoOrds maxSize);
     boolean addRoverToMap(RoverPlatform rover);
     int numberOfRoversOnMap();
-
+    boolean updateRoverInMapOrientation(RoverPlatform rover);
+    RoverPlatform getRoverInMap(String name);
 
     }

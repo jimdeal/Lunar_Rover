@@ -29,6 +29,7 @@ public abstract class SimpleRoverImpl implements RoverBase{
                     this.currentMap = map;
                     if((initialPosition.x>=0 && initialPosition.x<=map.getMaxSize().x) &&
                             (initialPosition.y>=0 && initialPosition.y<=map.getMaxSize().y)) {
+// >>> THIS : initialPosition seems to tie both together ?
                         this.startPosition = initialPosition;
                         this.currentPosition = initialPosition;
                         if(initialOrientation != null)

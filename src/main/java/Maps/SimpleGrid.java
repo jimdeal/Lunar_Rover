@@ -96,8 +96,44 @@ public abstract class SimpleGrid implements Map{
         return currentRoversInMap.size();
     }
 
-    public boolean updateRoverInMapOrientation(RoverPlatform rover, MoveOrientation newOrientation){
-        return false;
+    public boolean updateRoverInMapOrientation(RoverPlatform rover){
+        boolean successfulUpdate = false;
+        if(rover.getCurrentMap().getMapName().equals(mapName)){
+            // check have we got rover on this map : no rovers in map..
+            if(currentRoversInMap.size()>0){
+                Iterator<RoverPlatform> iterator = currentRoversInMap.iterator();
+                while (iterator.hasNext()) {
+                    RoverPlatform roverInMap = iterator.next();
+                    if ((roverInMap.getName().equals(rover.getName())) ||
+                            (roverInMap.getId().equals(rover.getId())) ||
+                            (roverInMap.getCurrentRoverPosition().equals(rover.getCurrentRoverPosition()))){
+                        roverInMap.changeOrientation(rover.getCurrentOrientation());
+                        successfulUpdate = true;
+                        return successfulUpdate;
+                    }
+                }
+            }
+            currentRoversInMap.add(rover);
+            successfulUpdate = true;
+        }
+        return successfulUpdate;
+    }
+
+    public RoverPlatform getRoverInMap(String name){
+        RoverPlatform returnRover = null;
+        // check have we got rover on this map : no rovers in map..
+        if(currentRoversInMap.size()>0){
+            Iterator<RoverPlatform> iterator = currentRoversInMap.iterator();
+            while (iterator.hasNext()) {
+                RoverPlatform roverInMap = iterator.next();
+                if (roverInMap.getName().equals(name)){
+//                        returnRover = new RoverPlatform();
+                    returnRover = roverInMap;
+                    return returnRover;
+                }
+            }
+        }
+        return null;
     }
 
 
