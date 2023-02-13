@@ -80,13 +80,13 @@ public abstract class SimpleGrid implements Map{
                     RoverPlatform roverInMap = iterator.next();
                     if ((roverInMap.getName().equals(rover.getName())) ||
                             (roverInMap.getId().equals(rover.getId())) ||
-                            (roverInMap.getCurrentRoverPosition().equals(rover.getCurrentRoverPosition()))){
+                            (roverInMap.getCurrentRoverPosition().CoOrdEquals(rover.getCurrentRoverPosition()))){
                         // this rover is already on this map OR the map from the rover is not this one
                         return successfulAdd;
                     }
                 }
             }
-            currentRoversInMap.add(rover);
+            currentRoversInMap.add(new RoverPlatform(rover));
             successfulAdd = true;
         }
         return successfulAdd;
@@ -106,7 +106,7 @@ public abstract class SimpleGrid implements Map{
                     RoverPlatform roverInMap = iterator.next();
                     if ((roverInMap.getName().equals(rover.getName())) ||
                             (roverInMap.getId().equals(rover.getId())) ||
-                            (roverInMap.getCurrentRoverPosition().equals(rover.getCurrentRoverPosition()))){
+                            (roverInMap.getCurrentRoverPosition().CoOrdEquals(rover.getCurrentRoverPosition()))){
                         roverInMap.changeOrientation(rover.getCurrentOrientation());
                         successfulUpdate = true;
                         return successfulUpdate;

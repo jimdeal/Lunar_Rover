@@ -13,6 +13,11 @@ public class CoOrds {
         this.y = y;
     }
 
+    public CoOrds(CoOrds coOrds){
+        this.x = coOrds.x;
+        this.y = coOrds.y;
+    }
+
     public boolean CoOrdEquals(CoOrds one){
         boolean equalsResult = false;
         if((one.x == this.x) && (one.y == this.y)){

@@ -199,7 +199,7 @@ class GridTest {
 
         rover.changeOrientation(MoveOrientation.West);
         assertEquals(MoveOrientation.West, rover.getCurrentOrientation());
-//        assertTrue(map.updateRoverInMapOrientation(rover));
+        assertTrue(map.updateRoverInMapOrientation(rover));
         RoverPlatform updatedRover = map.getRoverInMap(rover.getName());
         assertEquals(MoveOrientation.West, updatedRover.getCurrentOrientation());
     }
@@ -219,9 +219,7 @@ class GridTest {
 
         rover.makeMove(Move.Move);
 
-// IF I UPDATE rover here : i'm updating the rover as stored in map::currentRoversInMap as well ?
-        assertEquals(MoveOrientation.West, rover.getCurrentOrientation());
-//        assertTrue(map.updateRoverInMapOrientation(rover));
+        assertTrue(map.updateRoverInMapOrientation(rover));
         RoverPlatform updatedRover = map.getRoverInMap(rover.getName());
         assertEquals(MoveOrientation.West, updatedRover.getCurrentOrientation());
     }

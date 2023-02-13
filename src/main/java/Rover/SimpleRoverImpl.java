@@ -10,13 +10,13 @@ import Maps.SimpleGrid;
 import java.util.ArrayList;
 
 public abstract class SimpleRoverImpl implements RoverBase{
-    private String roverName = "";
-    private String roverId = "";
-    private SimpleGrid currentMap = new Grid();
-    private CoOrds startPosition = new CoOrds(0,0);
-    private CoOrds currentPosition = new CoOrds(0,0);
-    private MoveOrientation currentOrientation = MoveOrientation.North;
-    private ArrayList<String> movesLog = new ArrayList<String>();
+    protected String roverName = "";
+    protected String roverId = "";
+    protected SimpleGrid currentMap = new Grid();
+    protected CoOrds startPosition = new CoOrds(0,0);
+    protected CoOrds currentPosition = new CoOrds(0,0);
+    protected MoveOrientation currentOrientation = MoveOrientation.North;
+    protected ArrayList<String> movesLog = new ArrayList<String>();
 
     public boolean initialiseRover(String name, String id, SimpleGrid map,
                                    CoOrds initialPosition, MoveOrientation initialOrientation){
@@ -30,8 +30,8 @@ public abstract class SimpleRoverImpl implements RoverBase{
                     if((initialPosition.x>=0 && initialPosition.x<=map.getMaxSize().x) &&
                             (initialPosition.y>=0 && initialPosition.y<=map.getMaxSize().y)) {
 // >>> THIS : initialPosition seems to tie both together ?
-                        this.startPosition = initialPosition;
-                        this.currentPosition = initialPosition;
+                        this.startPosition = new CoOrds(initialPosition);
+                        this.currentPosition = new CoOrds(initialPosition);
                         if(initialOrientation != null)
                         {
                             this.logMove("Init");
