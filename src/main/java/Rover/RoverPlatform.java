@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class RoverPlatform extends SimpleRoverImpl{
 
     public RoverPlatform(){
-
     }
     public RoverPlatform(RoverPlatform roverPlatform){
         this.roverName = roverPlatform.getName();

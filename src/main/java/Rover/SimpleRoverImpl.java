@@ -53,11 +53,15 @@ public abstract class SimpleRoverImpl implements RoverBase{
         return setMapFail;
     }
     public void changeOrientation(MoveOrientation nextOrientation){
-        this.currentOrientation = nextOrientation;
+        if(nextOrientation!=null){
+            this.currentOrientation = nextOrientation;
+        }
     }
 
     private void logMove(String justMoved){
-        this.movesLog.add(justMoved);
+        if(!justMoved.isEmpty()){
+            this.movesLog.add(justMoved);
+        }
     }
 
     ArrayList<String> getLog(){
@@ -88,64 +92,66 @@ public abstract class SimpleRoverImpl implements RoverBase{
 
     public boolean makeMove(Move move){
         boolean moveSuccessful = false;
-        if(move==Move.M){
-            switch (this.currentOrientation) {
-                case North:
-                    if ((this.currentOrientation == MoveOrientation.North) &&
-                            ((this.currentPosition.y + 1) <= this.currentMap.getMaxSize().y)) {
-                        this.currentPosition.y++;
-                        this.logMove(move.toString());
+        if(move!=null){
+            if(move==Move.M){
+                switch (this.currentOrientation) {
+                    case North:
+                        if ((this.currentOrientation == MoveOrientation.North) &&
+                                ((this.currentPosition.y + 1) <= this.currentMap.getMaxSize().y)) {
+                            this.currentPosition.y++;
+                            this.logMove(move.toString());
 
-                        moveSuccessful = true;
-                    }
-                    break;
-                case East:
-                    if ((this.currentOrientation == MoveOrientation.East) &&
-                            ((this.currentPosition.x + 1) <= this.currentMap.getMaxSize().x)) {
-                        this.currentPosition.x++;
-                        this.logMove(move.toString());
-                        moveSuccessful = true;
-                    }
-                    break;
-                case South:
-                    if ((this.currentOrientation == MoveOrientation.South) &&
-                            ((this.currentPosition.y - 1) >= 0)) {
-                        this.currentPosition.y--;
-                        this.logMove(move.toString());
-                        moveSuccessful = true;
-                    }
-                    break;
-                case West:
-                    if ((this.currentOrientation == MoveOrientation.West) &&
-                            ((this.currentPosition.x - 1) >= 0)) {
-                        this.currentPosition.x--;
-                        this.logMove(move.toString());
-                        moveSuccessful = true;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        } else if (move == Move.R){
-            this.logMove(move.toString());
-            if(this.currentOrientation.ordinal()==3){
-                this.currentOrientation = MoveOrientation.North;
+                            moveSuccessful = true;
+                        }
+                        break;
+                    case East:
+                        if ((this.currentOrientation == MoveOrientation.East) &&
+                                ((this.currentPosition.x + 1) <= this.currentMap.getMaxSize().x)) {
+                            this.currentPosition.x++;
+                            this.logMove(move.toString());
+                            moveSuccessful = true;
+                        }
+                        break;
+                    case South:
+                        if ((this.currentOrientation == MoveOrientation.South) &&
+                                ((this.currentPosition.y - 1) >= 0)) {
+                            this.currentPosition.y--;
+                            this.logMove(move.toString());
+                            moveSuccessful = true;
+                        }
+                        break;
+                    case West:
+                        if ((this.currentOrientation == MoveOrientation.West) &&
+                                ((this.currentPosition.x - 1) >= 0)) {
+                            this.currentPosition.x--;
+                            this.logMove(move.toString());
+                            moveSuccessful = true;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            } else if (move == Move.R){
+                this.logMove(move.toString());
+                if(this.currentOrientation.ordinal()==3){
+                    this.currentOrientation = MoveOrientation.North;
+                } else {
+                    MoveOrientation tempMove = MoveOrientation.values()[this.currentOrientation.ordinal() +1];
+                    this.currentOrientation = tempMove;
+                }
+                moveSuccessful = true;
+            } else if (move == Move.L){
+                this.logMove(move.toString());
+                if(this.currentOrientation.ordinal()==0){
+                    this.currentOrientation = MoveOrientation.West;
+                } else {
+                    MoveOrientation tempMove = MoveOrientation.values()[this.currentOrientation.ordinal() -1];
+                    this.currentOrientation = tempMove;
+                }
+                moveSuccessful = true;
             } else {
-                MoveOrientation tempMove = MoveOrientation.values()[this.currentOrientation.ordinal() +1];
-                this.currentOrientation = tempMove;
+                //
             }
-            moveSuccessful = true;
-        } else if (move == Move.L){
-            this.logMove(move.toString());
-            if(this.currentOrientation.ordinal()==0){
-                this.currentOrientation = MoveOrientation.West;
-            } else {
-                MoveOrientation tempMove = MoveOrientation.values()[this.currentOrientation.ordinal() -1];
-                this.currentOrientation = tempMove;
-            }
-            moveSuccessful = true;
-        } else {
-            //
         }
         return moveSuccessful;
     }

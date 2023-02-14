@@ -73,22 +73,24 @@ public abstract class SimpleGrid implements Map{
 
     public boolean addRoverToMap(RoverPlatform rover){
         boolean successfulAdd = false;
-        if(rover.getCurrentMap().getMapName().equals(mapName)){
-            // check have we got rover on this map : no rovers in map..
-            if(currentRoversInMap.size()>0){
-                Iterator<RoverPlatform> iterator = currentRoversInMap.iterator();
-                while (iterator.hasNext()) {
-                    RoverPlatform roverInMap = iterator.next();
-                    if ((roverInMap.getName().equals(rover.getName())) ||
-                            (roverInMap.getId().equals(rover.getId())) ||
-                            (roverInMap.getCurrentRoverPosition().CoOrdEquals(rover.getCurrentRoverPosition()))){
-                        // this rover is already on this map OR the map from the rover is not this one
-                        return successfulAdd;
+        if(rover != null) {
+            if(rover.getCurrentMap().getMapName().equals(mapName)){
+                // check have we got rover on this map : no rovers in map..
+                if(currentRoversInMap.size()>0){
+                    Iterator<RoverPlatform> iterator = currentRoversInMap.iterator();
+                    while (iterator.hasNext()) {
+                        RoverPlatform roverInMap = iterator.next();
+                        if ((roverInMap.getName().equals(rover.getName())) ||
+                                (roverInMap.getId().equals(rover.getId())) ||
+                                (roverInMap.getCurrentRoverPosition().CoOrdEquals(rover.getCurrentRoverPosition()))){
+                            // this rover is already on this map OR the map from the rover is not this one
+                            return successfulAdd;
+                        }
                     }
                 }
+                currentRoversInMap.add(new RoverPlatform(rover));
+                successfulAdd = true;
             }
-            currentRoversInMap.add(new RoverPlatform(rover));
-            successfulAdd = true;
         }
         return successfulAdd;
     }
@@ -99,43 +101,44 @@ public abstract class SimpleGrid implements Map{
 
     public boolean updateRoverInMapOrientation(RoverPlatform rover){
         boolean successfulUpdate = false;
-        if(rover.getCurrentMap().getMapName().equals(mapName)){
-            // check have we got rover on this map : no rovers in map..
-            if(currentRoversInMap.size()>0){
-                Iterator<RoverPlatform> iterator = currentRoversInMap.iterator();
-                while (iterator.hasNext()) {
-                    RoverPlatform roverInMap = iterator.next();
-                    if ((roverInMap.getName().equals(rover.getName())) ||
-                            (roverInMap.getId().equals(rover.getId())) ||
-                            (roverInMap.getCurrentRoverPosition().CoOrdEquals(rover.getCurrentRoverPosition()))){
-                        roverInMap.changeOrientation(rover.getCurrentOrientation());
-                        successfulUpdate = true;
-                        return successfulUpdate;
+        if(rover != null){
+            if(rover.getCurrentMap().getMapName().equals(mapName)){
+                // check have we got rover on this map : no rovers in map..
+                if(currentRoversInMap.size()>0){
+                    Iterator<RoverPlatform> iterator = currentRoversInMap.iterator();
+                    while (iterator.hasNext()) {
+                        RoverPlatform roverInMap = iterator.next();
+                        if ((roverInMap.getName().equals(rover.getName())) ||
+                                (roverInMap.getId().equals(rover.getId())) ||
+                                (roverInMap.getCurrentRoverPosition().CoOrdEquals(rover.getCurrentRoverPosition()))){
+                            roverInMap.changeOrientation(rover.getCurrentOrientation());
+                            successfulUpdate = true;
+                            return successfulUpdate;
+                        }
                     }
                 }
+                currentRoversInMap.add(new RoverPlatform(rover));
+                successfulUpdate = true;
             }
-            currentRoversInMap.add(new RoverPlatform(rover));
-            successfulUpdate = true;
         }
         return successfulUpdate;
     }
 
     public RoverPlatform getRoverInMap(String name){
         RoverPlatform returnRover = null;
-        // check have we got rover on this map : no rovers in map..
-        if(currentRoversInMap.size()>0){
-            Iterator<RoverPlatform> iterator = currentRoversInMap.iterator();
-            while (iterator.hasNext()) {
-                RoverPlatform roverInMap = iterator.next();
-                if (roverInMap.getName().equals(name)){
-//                        returnRover = new RoverPlatform();
-                    returnRover = roverInMap;
-                    return returnRover;
+        if(!name.isEmpty()){
+            // check have we got rover on this map : no rovers in map..
+            if(currentRoversInMap.size()>0){
+                Iterator<RoverPlatform> iterator = currentRoversInMap.iterator();
+                while (iterator.hasNext()) {
+                    RoverPlatform roverInMap = iterator.next();
+                    if (roverInMap.getName().equals(name)){
+                        returnRover = roverInMap;
+                        return returnRover;
+                    }
                 }
             }
         }
         return null;
     }
-
-
 }

@@ -6,7 +6,6 @@ public class CoOrds {
     public int y = 0;
 
     public CoOrds(){
-
     }
     public CoOrds(int x, int y){
         this.x = x;
@@ -20,7 +19,7 @@ public class CoOrds {
 
     public boolean CoOrdEquals(CoOrds one){
         boolean equalsResult = false;
-        if((one.x == this.x) && (one.y == this.y)){
+        if((one!=null) && (one.x == this.x) && (one.y == this.y)){
             equalsResult = true;
         }
         return equalsResult;

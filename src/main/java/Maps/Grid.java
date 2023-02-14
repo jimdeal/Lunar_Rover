@@ -14,7 +14,7 @@ public class Grid extends SimpleGrid{
     }
 
     private Grid(String name, String id, CoOrds maxSize){
-        // don't let this happen - would need to surround all uses in try / catch
+        // we don't need this at the moment.
     }
 
 }
