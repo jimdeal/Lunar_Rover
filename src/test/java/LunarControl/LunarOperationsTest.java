@@ -209,6 +209,10 @@ class LunarOperationsTest {
         updatedRover = lunarOperations.getRoverByName("Lead");
         newCords = new CoOrds(1,1);
         assertTrue(updatedRover.getCurrentRoverPosition().CoOrdEquals(newCords));
+    }
 
+    @Test
+    public void doMultipleMovesFromRoute(){
+        
     }
 }
