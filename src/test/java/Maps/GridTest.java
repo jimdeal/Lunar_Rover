@@ -126,7 +126,6 @@ class GridTest {
         assertTrue(rover1.initialiseRover(name1, id1, map, initialPosition1, initialOrientation));
 
         assertTrue(map.addRoverToMap(rover1));
-
     }
 
     @Test
@@ -147,7 +146,6 @@ class GridTest {
         assertTrue(rover.initialiseRover(name, id, map2, initialPosition, initialOrientation));
 
         assertFalse(map.addRoverToMap(rover));
-
     }
 
     @Test
@@ -220,8 +218,6 @@ class GridTest {
         tempRovers = tempGrid.currentRoversInMap;
         tempRover = tempRovers.get(0);
         assertEquals(tempRover.getCurrentOrientation(), MoveOrientation.East);
-
-
     }
 
     @Test
@@ -248,9 +244,5 @@ class GridTest {
         RoverPlatform tempRover = tempGrid.getRoverInMap(rover.getName());
         updated = tempRover.getCurrentRoverPosition();
         assertTrue(updated.CoOrdEquals(newCords));
-
-
     }
-
-
 }

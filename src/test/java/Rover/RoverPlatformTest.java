@@ -163,8 +163,6 @@ class RoverPlatformTest {
         SimpleGrid tempGrid = rover.getCurrentMap();
         RoverPlatform tempRover = tempGrid.getRoverInMap(rover.getName());
         assertEquals(tempRover.getCurrentOrientation(), changeOrientation);
-
-
     }
 
     @Test
@@ -308,7 +306,6 @@ class RoverPlatformTest {
 
         ArrayList log = rover.getLog();
         assertArrayEquals(log.toArray(),testLog.toArray());
-
     }
 
 }

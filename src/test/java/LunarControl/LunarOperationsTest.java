@@ -5,6 +5,8 @@ import Maps.SimpleGrid;
 import Rover.RoverPlatform;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class LunarOperationsTest {
@@ -164,7 +166,6 @@ class LunarOperationsTest {
         RoverPlatform tempRover = lunarOperations.getRoverByName(updatedRover.getName());
         MoveOrientation tempOrientation = tempRover.getCurrentOrientation();
         assertEquals(tempOrientation, MoveOrientation.West);
-
     }
 
     @Test
@@ -230,7 +231,6 @@ class LunarOperationsTest {
         SimpleGrid tempGrid = tempRover.getCurrentMap();
         RoverPlatform anotherTempRover = tempRover.getCurrentMap().getRoverInMap(tempRover.getName());
         assertTrue(anotherTempRover.getCurrentRoverPosition().CoOrdEquals(newCords));
-
     }
 
     @Test
@@ -248,11 +248,59 @@ class LunarOperationsTest {
         assertTrue(lunarOperations.addRoverToRoversInUse(roverPlatform));
 
         String simpleRoute = new String("MRM");
-        lunarOperations.moveRoverThroughRoute("Lead",simpleRoute);
+        assertTrue(lunarOperations.moveRoverThroughRoute("Lead",simpleRoute));
 
         RoverPlatform updatedRover = lunarOperations.getRoverByName("Lead");
         CoOrds newCords = new CoOrds(1,1);
         assertTrue(updatedRover.getCurrentRoverPosition().CoOrdEquals(newCords));
 
+        RoverPlatform roverPlatform1 = new RoverPlatform();
+        roverPlatform1.initialiseRover("rover1", "2",grid, startingPosition, MoveOrientation.North);
+        assertTrue(roverPlatform1.getCurrentMap().addRoverToMap(roverPlatform1));
+        assertTrue(lunarOperations.addRoverToRoversInUse(roverPlatform1));
+
+        String simpleRoute1 = new String("RMMMLM");
+        assertTrue(lunarOperations.moveRoverThroughRoute("rover1",simpleRoute1));
+
+        RoverPlatform updatedRover1 = lunarOperations.getRoverByName("rover1");
+        newCords = new CoOrds(3,1);
+        assertTrue(updatedRover1.getCurrentRoverPosition().CoOrdEquals(newCords));
+
+        ArrayList<MoveOrientation> availableMoves = new ArrayList<MoveOrientation>();
+        availableMoves.add(MoveOrientation.North);
+        availableMoves.add(MoveOrientation.South);
+        availableMoves.add(MoveOrientation.East);
+        availableMoves.add(MoveOrientation.West);
+        ArrayList<MoveOrientation> possibleMoves = lunarOperations.getMoveOptions("rover1");
+        assertArrayEquals(availableMoves.toArray(),possibleMoves.toArray());
+    }
+
+    @Test
+    public void doMultipleMovesWithFail(){
+        LunarOperations lunarOperations = new LunarOperations();
+        Grid grid = new Grid();
+        CoOrds maxSize = new CoOrds(10,10);
+        grid.initialiseGrid("Home","1",maxSize);
+        assertTrue(lunarOperations.addMapToMapsInUse(grid));
+
+        CoOrds startingPosition = new CoOrds(9,9);
+        RoverPlatform roverPlatform = new RoverPlatform();
+        roverPlatform.initialiseRover("Lead", "1",grid, startingPosition, MoveOrientation.North);
+        assertTrue(roverPlatform.getCurrentMap().addRoverToMap(roverPlatform));
+        assertTrue(lunarOperations.addRoverToRoversInUse(roverPlatform));
+
+        String simpleRoute = new String("MRMM");
+        assertFalse(lunarOperations.moveRoverThroughRoute("Lead",simpleRoute));
+
+        CoOrds lastPosition = lunarOperations.getRoverByName("Lead").getCurrentRoverPosition();
+        CoOrds newCords = new CoOrds(10,10);
+        assertTrue(lastPosition.CoOrdEquals(newCords));
+
+        ArrayList<MoveOrientation> availableMoves = new ArrayList<MoveOrientation>();
+        availableMoves.add(MoveOrientation.South);
+        availableMoves.add(MoveOrientation.West);
+        ArrayList<MoveOrientation> possibleMoves = lunarOperations.getMoveOptions("Lead");
+
+        assertArrayEquals(availableMoves.toArray(),possibleMoves.toArray());
     }
 }

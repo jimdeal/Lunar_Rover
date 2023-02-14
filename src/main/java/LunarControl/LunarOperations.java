@@ -1,8 +1,8 @@
 package LunarControl;
 
 import Maps.Grid;
+import Maps.SimpleGrid;
 import Rover.RoverPlatform;
-import Rover.SimpleRoverImpl;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -100,11 +100,40 @@ public class LunarOperations {
         return opResult;
     }
 
-    public void moveRoverThroughRoute(String roverName, String route) {
+    public boolean moveRoverThroughRoute(String roverName, String route) {
+        boolean moveSuccessful = false;
         char[] routeArray = route.toCharArray();
         for (char c: routeArray) {
             Move move = Move.valueOf(Character.toString(c));
-            this.moveRover(roverName, move);
+            // THIS method does mean that a rover will get moved..
+            if(this.moveRover(roverName, move)){
+                moveSuccessful = true;
+            } else {
+                // ...if we get here - we may only be part way through a route
+                moveSuccessful = false;
+                break;
+            }
         }
+        return moveSuccessful;
+    }
+
+    public ArrayList<MoveOrientation> getMoveOptions(String roverName) {
+        ArrayList<MoveOrientation> returnMoves = new ArrayList<MoveOrientation>();
+        CoOrds tempCoOrds = this.getRoverByName(roverName).getCurrentRoverPosition();
+        SimpleGrid tempGrid = this.getRoverByName(roverName).getCurrentMap();
+
+        if(tempCoOrds.x < tempGrid.getMaxSize().x){
+            returnMoves.add(MoveOrientation.North);
+        };
+        if((tempCoOrds.x > 0)){
+            returnMoves.add(MoveOrientation.South);
+        }
+        if(tempCoOrds.y < tempGrid.getMaxSize().y){
+            returnMoves.add(MoveOrientation.East);
+        };
+        if((tempCoOrds.y > 0)){
+            returnMoves.add(MoveOrientation.West);
+        }
+        return returnMoves;
     }
 }
