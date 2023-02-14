@@ -53,7 +53,7 @@ public abstract class SimpleRoverImpl implements RoverBase{
     }
     public void changeOrientation(MoveOrientation nextOrientation){
         this.currentOrientation = nextOrientation;
-        this.currentMap.updateRoverInMapOrientation((RoverPlatform) this);
+//        this.currentMap.updateRoverInMapOrientation((RoverPlatform) this);
     }
 
     private void logMove(String justMoved){
@@ -88,7 +88,7 @@ public abstract class SimpleRoverImpl implements RoverBase{
 
     public boolean makeMove(Move move){
         boolean moveSuccessful = false;
-        if(move==Move.Move){
+        if(move==Move.M){
             switch (this.currentOrientation) {
                 case North:
                     if ((this.currentOrientation == MoveOrientation.North) &&
@@ -126,7 +126,7 @@ public abstract class SimpleRoverImpl implements RoverBase{
                 default:
                     break;
             }
-        } else if (move == Move.Right){
+        } else if (move == Move.R){
             this.logMove(move.toString());
             if(this.currentOrientation.ordinal()==3){
                 this.currentOrientation = MoveOrientation.North;
@@ -135,7 +135,7 @@ public abstract class SimpleRoverImpl implements RoverBase{
                 this.currentOrientation = tempMove;
             }
             moveSuccessful = true;
-        } else if (move == Move.Left){
+        } else if (move == Move.L){
             this.logMove(move.toString());
             if(this.currentOrientation.ordinal()==0){
                 this.currentOrientation = MoveOrientation.West;

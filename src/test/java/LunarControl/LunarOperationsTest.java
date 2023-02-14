@@ -192,19 +192,19 @@ class LunarOperationsTest {
         roverPlatform.initialiseRover("Lead", "1",grid, startingPosition, MoveOrientation.North);
         assertTrue(lunarOperations.addRoverToRoversInUse(roverPlatform));
 
-        Move move = Move.Move;
+        Move move = Move.M;
         assertTrue(lunarOperations.moveRover("Lead", move));
         RoverPlatform updatedRover = lunarOperations.getRoverByName("Lead");
         CoOrds newCords = new CoOrds(0,1);
         assertTrue(updatedRover.getCurrentRoverPosition().CoOrdEquals(newCords));
 
-        move = Move.Right;
+        move = Move.R;
         assertTrue(lunarOperations.moveRover("Lead", move));
         updatedRover = lunarOperations.getRoverByName("Lead");
 
         assertEquals(updatedRover.getCurrentOrientation(), MoveOrientation.East);
 
-        move = Move.Move;
+        move = Move.M;
         assertTrue(lunarOperations.moveRover("Lead", move));
         updatedRover = lunarOperations.getRoverByName("Lead");
         newCords = new CoOrds(1,1);
@@ -213,6 +213,16 @@ class LunarOperationsTest {
 
     @Test
     public void doMultipleMovesFromRoute(){
-        
+        LunarOperations lunarOperations = new LunarOperations();
+        Grid grid = new Grid();
+        CoOrds maxSize = new CoOrds(10,10);
+        grid.initialiseGrid("Home","1",maxSize);
+        assertTrue(lunarOperations.addMapToMapsInUse(grid));
+
+        CoOrds startingPosition = new CoOrds(0,0);
+        RoverPlatform roverPlatform = new RoverPlatform();
+        roverPlatform.initialiseRover("Lead", "1",grid, startingPosition, MoveOrientation.North);
+        assertTrue(lunarOperations.addRoverToRoversInUse(roverPlatform));
+
     }
 }

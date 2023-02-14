@@ -113,7 +113,7 @@ public abstract class SimpleGrid implements Map{
                     }
                 }
             }
-            currentRoversInMap.add(rover);
+            currentRoversInMap.add(new RoverPlatform(rover));
             successfulUpdate = true;
         }
         return successfulUpdate;

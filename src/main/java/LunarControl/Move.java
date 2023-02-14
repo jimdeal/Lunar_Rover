@@ -1,7 +1,7 @@
 package LunarControl;
 
 public enum Move {
-    Left,
-    Right,
-    Move
+    L,
+    R,
+    M
 }

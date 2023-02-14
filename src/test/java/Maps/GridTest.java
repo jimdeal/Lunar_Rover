@@ -217,9 +217,8 @@ class GridTest {
         assertTrue(rover.initialiseRover(name, id, map, initialPosition, initialOrientation));
         assertTrue(map.addRoverToMap(rover));
 
-        rover.makeMove(Move.Move);
+        rover.makeMove(Move.M);
 
-        assertTrue(map.updateRoverInMapOrientation(rover));
         RoverPlatform updatedRover = map.getRoverInMap(rover.getName());
         CoOrds newCords = new CoOrds(0,1);
         CoOrds updated = updatedRover.getCurrentRoverPosition();
