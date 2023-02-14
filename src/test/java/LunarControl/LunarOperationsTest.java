@@ -225,7 +225,7 @@ class LunarOperationsTest {
 
         tempRover = lunarOperations.getRoverByName(updatedRover.getName());
         CoOrds tempCoords= tempRover.getCurrentRoverPosition();
-        assertTrue(tempRover.getCurrentRoverPosition().CoOrdEquals(tempCoords));
+        assertTrue(tempRover.getCurrentRoverPosition().CoOrdEquals(newCords));
 
         SimpleGrid tempGrid = tempRover.getCurrentMap();
         RoverPlatform anotherTempRover = tempRover.getCurrentMap().getRoverInMap(tempRover.getName());
@@ -244,7 +244,15 @@ class LunarOperationsTest {
         CoOrds startingPosition = new CoOrds(0,0);
         RoverPlatform roverPlatform = new RoverPlatform();
         roverPlatform.initialiseRover("Lead", "1",grid, startingPosition, MoveOrientation.North);
+        assertTrue(roverPlatform.getCurrentMap().addRoverToMap(roverPlatform));
         assertTrue(lunarOperations.addRoverToRoversInUse(roverPlatform));
+
+        String simpleRoute = new String("MRM");
+        lunarOperations.moveRoverThroughRoute("Lead",simpleRoute);
+
+        RoverPlatform updatedRover = lunarOperations.getRoverByName("Lead");
+        CoOrds newCords = new CoOrds(1,1);
+        assertTrue(updatedRover.getCurrentRoverPosition().CoOrdEquals(newCords));
 
     }
 }

@@ -100,4 +100,11 @@ public class LunarOperations {
         return opResult;
     }
 
+    public void moveRoverThroughRoute(String roverName, String route) {
+        char[] routeArray = route.toCharArray();
+        for (char c: routeArray) {
+            Move move = Move.valueOf(Character.toString(c));
+            this.moveRover(roverName, move);
+        }
+    }
 }
