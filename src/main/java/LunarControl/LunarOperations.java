@@ -87,6 +87,7 @@ public class LunarOperations {
         RoverPlatform tempRover = this.getRoverByName(roverName);
         if( tempRover != null){
             tempRover.changeOrientation(moveOrientation);
+            tempRover.getCurrentMap().updateRoverInMapOrientation(tempRover);
         }
     }
 

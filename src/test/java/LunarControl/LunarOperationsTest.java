@@ -1,6 +1,7 @@
 package LunarControl;
 
 import Maps.Grid;
+import Maps.SimpleGrid;
 import Rover.RoverPlatform;
 import org.junit.jupiter.api.Test;
 
@@ -159,6 +160,11 @@ class LunarOperationsTest {
         lunarOperations.changeRoverOrientation("Lead", MoveOrientation.West);
         RoverPlatform updatedRover = lunarOperations.getRoverByName("Lead");
         assertEquals(updatedRover.getCurrentOrientation(), MoveOrientation.West);
+
+        RoverPlatform tempRover = lunarOperations.getRoverByName(updatedRover.getName());
+        MoveOrientation tempOrientation = tempRover.getCurrentOrientation();
+        assertEquals(tempOrientation, MoveOrientation.West);
+
     }
 
     @Test
@@ -190,6 +196,8 @@ class LunarOperationsTest {
         CoOrds startingPosition = new CoOrds(0,0);
         RoverPlatform roverPlatform = new RoverPlatform();
         roverPlatform.initialiseRover("Lead", "1",grid, startingPosition, MoveOrientation.North);
+        assertTrue(roverPlatform.getCurrentMap().addRoverToMap(roverPlatform));
+
         assertTrue(lunarOperations.addRoverToRoversInUse(roverPlatform));
 
         Move move = Move.M;
@@ -204,11 +212,25 @@ class LunarOperationsTest {
 
         assertEquals(updatedRover.getCurrentOrientation(), MoveOrientation.East);
 
+        RoverPlatform tempRover = lunarOperations.getRoverByName(updatedRover.getName());
+        MoveOrientation tempOrientation = tempRover.getCurrentOrientation();
+        assertEquals(tempOrientation, MoveOrientation.East);
+
+
         move = Move.M;
         assertTrue(lunarOperations.moveRover("Lead", move));
         updatedRover = lunarOperations.getRoverByName("Lead");
         newCords = new CoOrds(1,1);
         assertTrue(updatedRover.getCurrentRoverPosition().CoOrdEquals(newCords));
+
+        tempRover = lunarOperations.getRoverByName(updatedRover.getName());
+        CoOrds tempCoords= tempRover.getCurrentRoverPosition();
+        assertTrue(tempRover.getCurrentRoverPosition().CoOrdEquals(tempCoords));
+
+        SimpleGrid tempGrid = tempRover.getCurrentMap();
+        RoverPlatform anotherTempRover = tempRover.getCurrentMap().getRoverInMap(tempRover.getName());
+        assertTrue(anotherTempRover.getCurrentRoverPosition().CoOrdEquals(newCords));
+
     }
 
     @Test

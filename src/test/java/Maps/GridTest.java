@@ -6,6 +6,8 @@ import LunarControl.MoveOrientation;
 import Rover.RoverPlatform;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GridTest {
@@ -202,6 +204,24 @@ class GridTest {
         assertTrue(map.updateRoverInMapOrientation(rover));
         RoverPlatform updatedRover = map.getRoverInMap(rover.getName());
         assertEquals(MoveOrientation.West, updatedRover.getCurrentOrientation());
+
+        SimpleGrid tempGrid = rover.getCurrentMap();
+        ArrayList<RoverPlatform> tempRovers = tempGrid.currentRoversInMap;
+        RoverPlatform tempRover = tempRovers.get(0);
+        assertEquals(tempRover.getCurrentOrientation(), MoveOrientation.West);
+
+        rover.changeOrientation(MoveOrientation.East);
+        assertEquals(MoveOrientation.East, rover.getCurrentOrientation());
+        assertTrue(map.updateRoverInMapOrientation(rover));
+        updatedRover = map.getRoverInMap(rover.getName());
+        assertEquals(MoveOrientation.East, updatedRover.getCurrentOrientation());
+
+        tempGrid = rover.getCurrentMap();
+        tempRovers = tempGrid.currentRoversInMap;
+        tempRover = tempRovers.get(0);
+        assertEquals(tempRover.getCurrentOrientation(), MoveOrientation.East);
+
+
     }
 
     @Test
@@ -223,6 +243,12 @@ class GridTest {
         CoOrds newCords = new CoOrds(0,1);
         CoOrds updated = updatedRover.getCurrentRoverPosition();
         assertTrue(updated.CoOrdEquals(newCords));
+
+        SimpleGrid tempGrid = rover.getCurrentMap();
+        RoverPlatform tempRover = tempGrid.getRoverInMap(rover.getName());
+        updated = tempRover.getCurrentRoverPosition();
+        assertTrue(updated.CoOrdEquals(newCords));
+
 
     }
 

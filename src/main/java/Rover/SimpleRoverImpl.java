@@ -26,7 +26,8 @@ public abstract class SimpleRoverImpl implements RoverBase{
             if(!id.isEmpty()){
                 this.roverId = id;
                 if(map != null){
-                    this.currentMap = map;
+                    this.currentMap = map; // links incoming map and currentmap
+                    // will need to add rover to map AFTER intialisation is complete
                     if((initialPosition.x>=0 && initialPosition.x<=map.getMaxSize().x) &&
                             (initialPosition.y>=0 && initialPosition.y<=map.getMaxSize().y)) {
                         this.startPosition = new CoOrds(initialPosition);
@@ -53,7 +54,6 @@ public abstract class SimpleRoverImpl implements RoverBase{
     }
     public void changeOrientation(MoveOrientation nextOrientation){
         this.currentOrientation = nextOrientation;
-//        this.currentMap.updateRoverInMapOrientation((RoverPlatform) this);
     }
 
     private void logMove(String justMoved){

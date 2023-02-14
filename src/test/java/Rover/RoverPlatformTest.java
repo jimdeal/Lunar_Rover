@@ -98,19 +98,38 @@ class RoverPlatformTest {
         MoveOrientation initialOrientation = MoveOrientation.North;
 
         assertTrue(rover.initialiseRover(name, id, map, initialPosition, initialOrientation));
+        assertTrue(rover.getCurrentMap().addRoverToMap(rover));
+
         assertEquals(rover.getCurrentOrientation(),initialOrientation);
 
         MoveOrientation changeOrientation = MoveOrientation.East;
         rover.changeOrientation(changeOrientation);
+        rover.getCurrentMap().updateRoverInMapOrientation(rover);
+
         assertEquals(rover.getCurrentOrientation(), changeOrientation);
+        SimpleGrid tempGrid = rover.getCurrentMap();
+        RoverPlatform tempRover = tempGrid.getRoverInMap(rover.getName());
+        assertEquals(tempRover.getCurrentOrientation(), changeOrientation);
+
 
         changeOrientation = MoveOrientation.West;
         rover.changeOrientation(changeOrientation);
+        rover.getCurrentMap().updateRoverInMapOrientation(rover);
         assertEquals(rover.getCurrentOrientation(), changeOrientation);
+
+        tempGrid = rover.getCurrentMap();
+        tempRover = tempGrid.getRoverInMap(rover.getName());
+        assertEquals(tempRover.getCurrentOrientation(), changeOrientation);
+
 
         changeOrientation = MoveOrientation.South;
         rover.changeOrientation(changeOrientation);
+        rover.getCurrentMap().updateRoverInMapOrientation(rover);
         assertEquals(rover.getCurrentOrientation(), changeOrientation);
+
+        tempGrid = rover.getCurrentMap();
+        tempRover = tempGrid.getRoverInMap(rover.getName());
+        assertEquals(tempRover.getCurrentOrientation(), changeOrientation);
     }
 
     @Test
@@ -129,12 +148,23 @@ class RoverPlatformTest {
 
         MoveOrientation changeOrientation = MoveOrientation.West;
         rover.changeOrientation(changeOrientation);
+        rover.getCurrentMap().updateRoverInMapOrientation(rover);
+
         assertEquals(rover.getCurrentOrientation(), changeOrientation);
 
         changeOrientation = MoveOrientation.East;
         rover.changeOrientation(changeOrientation);
         rover.changeOrientation(changeOrientation);
         assertEquals(rover.getCurrentOrientation(), changeOrientation);
+
+        assertTrue(map.updateRoverInMapOrientation(rover));
+
+        assertEquals(rover.getCurrentOrientation(), changeOrientation);
+        SimpleGrid tempGrid = rover.getCurrentMap();
+        RoverPlatform tempRover = tempGrid.getRoverInMap(rover.getName());
+        assertEquals(tempRover.getCurrentOrientation(), changeOrientation);
+
+
     }
 
     @Test

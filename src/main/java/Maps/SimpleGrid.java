@@ -1,6 +1,7 @@
 package Maps;
 
 import LunarControl.CoOrds;
+import LunarControl.Move;
 import LunarControl.MoveOrientation;
 import Rover.RoverPlatform;
 
