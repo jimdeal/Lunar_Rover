@@ -19,7 +19,18 @@ public class LunarOperations {
     public boolean addMapToMapsInUse(Grid map){
         boolean addReturn = false;
         if(map!=null){
-            addReturn= mapsInUse.add(map);
+            if(mapsInUse.size()>0){
+                Iterator<Grid> iterator = mapsInUse.iterator();
+                while (iterator.hasNext()) {
+                    Grid grid = iterator.next();
+                    if (!grid.getMapName().equals(map.getMapName())) {
+                        addReturn= mapsInUse.add(map);
+                        break;
+                    }
+                }
+            } else{
+                addReturn= mapsInUse.add(map);
+            }
         }
         return addReturn;
     }
@@ -56,12 +67,13 @@ public class LunarOperations {
     public boolean addRoverToRoversInUse(RoverPlatform rover){
         boolean roverAdded = false;
         if(rover!=null){
-            if(mapsInUse.size()>0){
-                Iterator<Grid> iterator = mapsInUse.iterator();
+            if(roversInUse.size()>0){
+                Iterator<RoverPlatform> iterator = roversInUse.iterator();
                 while (iterator.hasNext()) {
-                    Grid map = iterator.next();
-                    if (map.getMapName() == rover.getCurrentMap().getMapName()) {
+                    RoverPlatform roverIt = iterator.next();
+                    if (!roverIt.getName().equals(rover.getName())) {
                         roverAdded = roversInUse.add(rover);
+                        break;
                     }
                 }
             } else {
