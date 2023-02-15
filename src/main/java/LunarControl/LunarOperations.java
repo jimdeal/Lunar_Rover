@@ -8,13 +8,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class LunarOperations {
+    // Adding Grid directly to this ArrayList..
+    // means Grid details are updated as Grid is changed
     private ArrayList<Grid> mapsInUse = new ArrayList<Grid>();
+
+    // Adding Rovers directly to this ArrayList
+    // means Rovers details are updated as Rover is changed
     private ArrayList<RoverPlatform> roversInUse = new ArrayList<RoverPlatform>();
 
     public boolean addMapToMapsInUse(Grid map){
         boolean addReturn = false;
         if(map!=null){
-            addReturn= mapsInUse.add(new Grid(map));
+            addReturn= mapsInUse.add(map);
         }
         return addReturn;
     }
@@ -56,11 +61,11 @@ public class LunarOperations {
                 while (iterator.hasNext()) {
                     Grid map = iterator.next();
                     if (map.getMapName() == rover.getCurrentMap().getMapName()) {
-                        roverAdded = roversInUse.add(new RoverPlatform(rover));
+                        roverAdded = roversInUse.add(rover);
                     }
                 }
             } else {
-                roverAdded = roversInUse.add(new RoverPlatform(rover));
+                roverAdded = roversInUse.add(rover);
             }
         }
         return roverAdded;
