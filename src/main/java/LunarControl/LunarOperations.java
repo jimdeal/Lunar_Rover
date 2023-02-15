@@ -1,6 +1,7 @@
 package LunarControl;
 
 import Maps.Grid;
+import Maps.Map;
 import Maps.SimpleGrid;
 import Rover.RoverPlatform;
 
@@ -175,4 +176,5 @@ public class LunarOperations {
         }
         return returnMoves;
     }
+
 }

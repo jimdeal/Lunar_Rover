@@ -54,6 +54,12 @@ public abstract class SimpleRoverImpl implements RoverBase{
     }
     public void changeOrientation(MoveOrientation nextOrientation){
         if(nextOrientation!=null){
+            String newOrientation = this.projectedRoverMoveWhenUsingMoveOrientation(this.getName(),nextOrientation);
+            for(int i = 0; i < newOrientation.length(); i++){
+                String str = Character.toString(newOrientation.charAt(i));
+                Move m = Move.valueOf(str); // what if this fails ?
+                this.makeMove(m);
+            }
             this.currentOrientation = nextOrientation;
         }
     }
@@ -63,6 +69,30 @@ public abstract class SimpleRoverImpl implements RoverBase{
             this.movesLog.add(justMoved);
         }
     }
+
+    private String projectedRoverMoveWhenUsingMoveOrientation(String roverName, MoveOrientation newMove) {
+        String newMoveString = new String();
+        if(!roverName.isEmpty()){
+            MoveOrientation currentOrientation = this.currentOrientation;
+            int currentOrientationIndex = currentOrientation.ordinal();
+            int moveDiff = currentOrientationIndex-newMove.ordinal();
+
+            if(moveDiff<0){
+                moveDiff = Math.abs(moveDiff);
+                for(int i = 0; i< moveDiff;i++){
+                    newMoveString += "R";
+                }
+            }else if (moveDiff>0){
+                for(int i = 0; i< moveDiff;i++){
+                    newMoveString += "L";
+                }
+            }
+        }
+
+        return newMoveString;
+    }
+
+
 
     ArrayList<String> getLog(){
         return this.movesLog;

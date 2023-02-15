@@ -303,4 +303,5 @@ class LunarOperationsTest {
 
         assertArrayEquals(availableMoves.toArray(),possibleMoves.toArray());
     }
+
 }
