@@ -304,4 +304,51 @@ class LunarOperationsTest {
         assertArrayEquals(availableMoves.toArray(),possibleMoves.toArray());
     }
 
+    @Test
+    public void doMultipleMovesFromRouteTest1() {
+        LunarOperations lunarOperations = new LunarOperations();
+        Grid grid = new Grid();
+        CoOrds maxSize = new CoOrds(5, 5);
+        grid.initialiseGrid("Home", "1", maxSize);
+        assertTrue(lunarOperations.addMapToMapsInUse(grid));
+
+        CoOrds startingPosition = new CoOrds(1, 2);
+        RoverPlatform roverPlatform = new RoverPlatform();
+        roverPlatform.initialiseRover("Lead", "1", grid, startingPosition, MoveOrientation.North);
+        assertTrue(roverPlatform.getCurrentMap().addRoverToMap(roverPlatform));
+        assertTrue(lunarOperations.addRoverToRoversInUse(roverPlatform));
+
+        String simpleRoute = new String("LMLMLMLMM");
+        assertTrue(lunarOperations.moveRoverThroughRoute("Lead",simpleRoute));
+
+        RoverPlatform updatedRover = lunarOperations.getRoverByName("Lead");
+        CoOrds testCoOrds = new CoOrds(1,3);
+        assertTrue(updatedRover.getCurrentRoverPosition().CoOrdEquals(testCoOrds));
+        assertEquals(updatedRover.getCurrentOrientation(), MoveOrientation.North);
+    }
+
+    @Test
+    public void doMultipleMovesFromRouteTest2() {
+        LunarOperations lunarOperations = new LunarOperations();
+        Grid grid = new Grid();
+        CoOrds maxSize = new CoOrds(5, 5);
+        grid.initialiseGrid("Home", "1", maxSize);
+        assertTrue(lunarOperations.addMapToMapsInUse(grid));
+
+        CoOrds startingPosition = new CoOrds(3, 3);
+        RoverPlatform roverPlatform = new RoverPlatform();
+        roverPlatform.initialiseRover("Lead", "1", grid, startingPosition, MoveOrientation.East);
+        assertTrue(roverPlatform.getCurrentMap().addRoverToMap(roverPlatform));
+        assertTrue(lunarOperations.addRoverToRoversInUse(roverPlatform));
+
+        String simpleRoute = new String("MMRMMRMRRM");
+        assertTrue(lunarOperations.moveRoverThroughRoute("Lead",simpleRoute));
+
+        RoverPlatform updatedRover = lunarOperations.getRoverByName("Lead");
+        CoOrds testCoOrds = new CoOrds(5,1);
+        assertTrue(updatedRover.getCurrentRoverPosition().CoOrdEquals(testCoOrds));
+        assertEquals(updatedRover.getCurrentOrientation(), MoveOrientation.East);
+    }
+
+
 }
