@@ -21,3 +21,10 @@ through single moves OR through a route (string of moves).
 
 The UML describing some basic use cases, some of the sequence diagrams and the first
 version of the class diagram are contaned in the UML folder.
+
+Possible extensions:
+anti colision mechanism
+operate rover(s) from command line.
+add different map types (ones that include obsticles)
+add sensors
+add different nav types (possibly based on sensors)
